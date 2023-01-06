@@ -1,0 +1,80 @@
+#lab 3, part 1, guess the word game
+import random
+
+#gives this program access to the words
+wordList = []
+with open("WordList.txt") as file:
+	for line in file:
+		wordList.append(line.strip())
+
+#selects a random word from the list
+word = random.choice(wordList)
+
+#beginning interactions of the game
+print("Guess the word!")
+for i in range(len(word)):
+	print("_",end="")
+print()
+memory = []
+for i in range(len(word)):
+	memory.append("_")
+
+#checks to see if the letter that was guessed is right or wrong
+incorrectguess = 0
+#print(word)
+while incorrectguess < 6:
+	letter = input("guess a letter: ")
+	for i in range(len(word)):
+		if word[i] == letter:
+			memory[i] = letter		
+	if letter not in word:
+		incorrectguess += 1
+		print("incorrect")
+	print(memory)
+	
+	if "_" not in memory:
+		print("you won!")
+		break
+
+if incorrectguess == 6:
+	print("You Lose!")
+print("the word was", word)
+
+
+#part 2 mastermind
+
+list = ["A","B","C","D","E","F"]
+code = []
+
+#creates a random code
+for i in range(4):
+	code.append(random.choice(list))
+print("Welcome to Master Mind")
+
+#test
+#print(code)
+
+#user guesses the code and it says if it's in the correct location or not
+#1 = correct location
+#2 = correct letter, wrong location
+#3 = not in the code
+
+guess = input("guess the code: ")	
+while guess[0] != code[0] or guess[1] != code[1] or guess[2] != code[2] or guess[3] != code[3]:
+	
+	for i in range(4):
+		if code[i] == guess[i]:
+			print("1",end="")
+		elif guess[i] not in code:
+			print("3",end="")
+		else:
+			print("2",end="")
+	print()
+	guess = input("guess the code: ")	
+if guess[0] == code[0] and guess[1] == code[1] and guess[2] == code[2] and guess[3] == code[3]:
+	print("You guessed the code!")
+	
+
+
+
+
